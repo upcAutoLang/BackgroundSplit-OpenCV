@@ -638,7 +638,7 @@ void ViBePlus::CalcuUpdateModel()
             //----------------------------------------------
             //   Calculate Blink Level
             //==================================
-            if(samples_BGInner)
+            if(samples_BGInner[i][j])
             {
                 // 当前邻域状态与上一帧邻域状态相同，则说明当前点不闪烁；
                 // If Neighbor Area State of Current Frame is same as Previous Frame's, it means Current Pixel is not Blinking.
@@ -647,7 +647,10 @@ void ViBePlus::CalcuUpdateModel()
                 // 当前邻域状态与上一帧邻域状态不同，则说明当前点闪烁；
                 // If Neighbor Area State of Current Frame is not same as Previous Frame's, it means Current Pixel is Blinking.
                 else
+                {
                     samples_BlinkLevel[i][j] += 15;
+                    samples_BlinkLevel[i][j] = min(samples_BlinkLevel[i][j], 150);
+                }
             }
             else
             {
@@ -668,7 +671,10 @@ void ViBePlus::CalcuUpdateModel()
             //   If Blink Level is Larger than 30, Then remove this Pixel from Update Model.
             //==================================
             if(samples_BlinkLevel[i][j] > 30)
-                UpdateModel.at<uchar>(i, j) = 0;
+            {
+                UpdateModel.at<uchar>(i, j) = 255;
+//                SegModel.at<uchar>(i, j) = 0;
+            }
         }
     }
 
@@ -947,3 +953,4 @@ void ViBePlus::deleteSamples()
     delete samples_BlinkLevel;
     delete samples_MaxInnerGrad;
 }
+
