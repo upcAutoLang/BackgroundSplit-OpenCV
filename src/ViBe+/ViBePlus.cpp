@@ -555,7 +555,11 @@ void ViBePlus::CalcuUpdateModel()
         int father = hierarchy[i][3];
         // 二级父轮廓
         // Level 2 of Father Contour
-        int grandpa = hierarchy[father][3];
+        int grandpa;
+        if(father >= 0)
+            grandpa = hierarchy[father][3];
+        else
+            grandpa = -1;
 
         //===================================================================
         // 有父轮廓，无两级父轮廓，说明该轮廓是等级为 1 的轮廓，即我们需要的前景空洞区域；
@@ -692,7 +696,11 @@ void ViBePlus::CalcuUpdateModel()
         int father = hierarchy[i][3];
         // 二级父轮廓
         // Level 2 of Father Contour
-        int grandpa = hierarchy[father][3];
+        int grandpa;
+        if(father >= 0)
+            grandpa = hierarchy[father][3];
+        else
+            grandpa = -1;
         //===================================================================
         // 有一级父轮廓，无两级父轮廓，说明该轮廓是等级为 1 的轮廓，即需要的前景空洞区域；
         //------------------------------------------------------------------
