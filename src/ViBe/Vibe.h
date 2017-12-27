@@ -73,11 +73,11 @@ public:
 
     // x的邻居点
     // x's neighborhood points
-    int c_xoff[9] = {-1,  0,  1, -1, 1, -1, 0, 1, 0};
+    int c_xoff[9];
 
     // y的邻居点
     // y's neighborhood points
-    int c_yoff[9] = {-1,  0,  1, -1, 1, -1, 0, 1, 0};
+    int c_yoff[9];
 
 private:
     // 样本库
