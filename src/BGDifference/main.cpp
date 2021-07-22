@@ -30,7 +30,7 @@
 */
 
 #include "BGDifference.h"
-
+#include "opencv2/opencv.hpp"
 int main( int argc, char** argv )
 {
     // 原图像
@@ -77,7 +77,7 @@ int main( int argc, char** argv )
         nFrmNum++;
 
         // 视频控制
-        if( (ctrl = cvWaitKey(1000 / 25)) == 's' )
+        if( (ctrl = cv::waitKey(1000 / 25)) == 's' )
             waitKey(0);
         else if( ctrl == 'p')
             cout << "Current Frame = " << nFrmNum << endl;
@@ -85,9 +85,9 @@ int main( int argc, char** argv )
             break;
 
         // OpenCV自带OTSU
-        BGDif.BackgroundDiff(pFrame, pFroundImg, pBackgroundImg, nFrmNum, CV_THRESH_OTSU);
+        BGDif.BackgroundDiff(pFrame, pFroundImg, pBackgroundImg, nFrmNum, THRESH_OTSU);
         // 阈值筛选后的OTSU
-        BGDif.BackgroundDiff(pFrame, pFroundImg_c, pBackgroundImg_c, nFrmNum, CV_THRESH_BINARY);
+        BGDif.BackgroundDiff(pFrame, pFroundImg_c, pBackgroundImg_c, nFrmNum, THRESH_BINARY);
 
         // 显示图像
         imshow("Source Video", pFrame);

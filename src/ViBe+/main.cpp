@@ -40,8 +40,8 @@ int main(int argc, char* argv[])
         }
     }
 
-    capture.set(CV_CAP_PROP_FRAME_WIDTH,160);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT,120);
+    capture.set(CAP_PROP_FRAME_WIDTH,160);
+    capture.set(CAP_PROP_FRAME_HEIGHT,120);
     if (!capture.isOpened())
     {
         cout<<"No camera or video input!"<<endl;

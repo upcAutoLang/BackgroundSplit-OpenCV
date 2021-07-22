@@ -87,8 +87,8 @@ void BGDiff::BackgroundDiff(Mat src, Mat &imgForeground, Mat& imgBackground, int
 
         // 用第一帧图像的灰度图初始化前景与背景图像
         // Gray Image of First Frame init as Foreground & Background Image
-        cvtColor(src, imgBackground, CV_BGR2GRAY);
-        cvtColor(src, imgForeground, CV_BGR2GRAY);
+        cvtColor(src, imgBackground, COLOR_BGR2GRAY);
+        cvtColor(src, imgForeground, COLOR_BGR2GRAY);
         imgBackground.convertTo(imgBackgroundf, CV_32FC1);
         imgForeground.convertTo(imgForegroundf, CV_32FC1);
     }
@@ -98,7 +98,7 @@ void BGDiff::BackgroundDiff(Mat src, Mat &imgForeground, Mat& imgBackground, int
     {
         // 获得当前帧图像灰度图，并转换为浮点数格式
         // get Gray Image of Source Image and Convert it to float Format.
-        cvtColor(src, src_gray, CV_BGR2GRAY);
+        cvtColor(src, src_gray, COLOR_BGR2GRAY);
         src_gray.convertTo(src_grayf, CV_32FC1);
 
         // 获得背景图像灰度图，并转换为浮点数格式
@@ -116,13 +116,13 @@ void BGDiff::BackgroundDiff(Mat src, Mat &imgForeground, Mat& imgBackground, int
 
         // 使用OpenCV自带的OTSU方法
         // Using OpenCV's OTSU method
-        if(threshold_method == CV_THRESH_OTSU)
+        if(threshold_method == THRESH_OTSU)
         {
             // 浮点转化为整点
             // Convert Foreground Image's Format from float to uchar
             imgForeground_temp.convertTo(imgForeground_temp, CV_8UC1);
             // 对比自适应阈值化
-            threshold(imgForeground_temp, imgForeground, 0, 255, CV_THRESH_OTSU);
+            threshold(imgForeground_temp, imgForeground, 0, 255, THRESH_OTSU);
         }
         // 使用该类中的OTSU方法
         // Using this class's OTSU method
@@ -134,7 +134,7 @@ void BGDiff::BackgroundDiff(Mat src, Mat &imgForeground, Mat& imgBackground, int
             // 浮点转化为整点
             // Convert Foreground Image's Format from float to uchar
             imgForeground_temp.convertTo(imgForeground_temp, CV_8UC1);
-            threshold(imgForeground_temp, imgForeground, threshold_otsu, 255, CV_THRESH_BINARY);
+            threshold(imgForeground_temp, imgForeground, threshold_otsu, 255, THRESH_BINARY);
         }
 
         /*===================================================================
@@ -217,7 +217,7 @@ void BGDiff::Otsu(Mat src, int& thresholdValue, bool ToShowValue)
     if(src.channels()  != 1)
     {
         gray.create(src.size(), CV_8UC1);
-        cvtColor(src, gray, CV_BGR2GRAY);
+        cvtColor(src, gray, COLOR_BGR2GRAY);
         grayflag = 0;
     }
     else

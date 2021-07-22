@@ -122,7 +122,7 @@ void ViBePlus::FrameCapture(Mat img)
     img.copyTo(Frame);
     if(img.channels() == 3)
     {
-        cvtColor(Frame, Gray, CV_BGR2GRAY);
+        cvtColor(Frame, Gray, COLOR_BGR2GRAY);
         Channels = 3;
     }
     else
@@ -547,7 +547,7 @@ void ViBePlus::CalcuUpdateModel()
 
     // 提取轮廓
     // Extract Contours
-    findContours(imgtmp, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE);
+    findContours(imgtmp, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
     for(int i = 0; i < contours.size(); i++)
     {
         // 一级父轮廓
@@ -688,7 +688,7 @@ void ViBePlus::CalcuUpdateModel()
     //   Process Foreground Areas of Segment Areas
     //==================================
     SegModel.copyTo(imgtmp);
-    findContours(imgtmp, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE);
+    findContours(imgtmp, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
 
     for(int i = 0; i < contours.size(); i++) {
         // 一级父轮廓
