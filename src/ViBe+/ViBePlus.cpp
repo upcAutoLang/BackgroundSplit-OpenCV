@@ -853,7 +853,7 @@ void ViBePlus::UpdatePixSampleSumSquare(int i, int j, int k, int val)
     // 计算样本集平均值更新后的样本集灰度总平方和
     // Calculate Sum of Gray Value's Square After Average Value Updated.
     for(int m = 0; m < num_samples; m++)
-        res += pow(samples[i][j][k] - samples_ave[i][j], 2);
+        res += pow(samples[i][j][m] - samples_ave[i][j], 2);
     res /= num_samples;
     samples_sumsqr[i][j] = res;
 }
