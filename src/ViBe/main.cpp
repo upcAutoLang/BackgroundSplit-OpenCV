@@ -40,8 +40,8 @@ int main(int argc, char* argv[])
         }
     }
 
-    capture.set(CV_CAP_PROP_FRAME_WIDTH,160);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT,120);
+    capture.set(CAP_PROP_FRAME_WIDTH,160);
+    capture.set(CAP_PROP_FRAME_HEIGHT,120);
     if (!capture.isOpened())
     {
         cout<<"No camera or video input!"<<endl;
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
         if (frame.empty())
             continue;
 
-        cvtColor(frame, gray, CV_RGB2GRAY);
+        cvtColor(frame, gray, cv::COLOR_RGB2GRAY);
         if (count)
         {
             vibe.init(gray);

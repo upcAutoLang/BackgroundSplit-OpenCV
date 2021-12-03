@@ -122,7 +122,7 @@ void ViBePlus::FrameCapture(Mat img)
     img.copyTo(Frame);
     if(img.channels() == 3)
     {
-        cvtColor(Frame, Gray, CV_BGR2GRAY);
+        cvtColor(Frame, Gray, COLOR_BGR2GRAY);
         Channels = 3;
     }
     else
@@ -547,7 +547,7 @@ void ViBePlus::CalcuUpdateModel()
 
     // 提取轮廓
     // Extract Contours
-    findContours(imgtmp, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE);
+    findContours(imgtmp, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
     for(int i = 0; i < contours.size(); i++)
     {
         // 一级父轮廓
@@ -688,7 +688,7 @@ void ViBePlus::CalcuUpdateModel()
     //   Process Foreground Areas of Segment Areas
     //==================================
     SegModel.copyTo(imgtmp);
-    findContours(imgtmp, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE);
+    findContours(imgtmp, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
 
     for(int i = 0; i < contours.size(); i++) {
         // 一级父轮廓
@@ -853,7 +853,7 @@ void ViBePlus::UpdatePixSampleSumSquare(int i, int j, int k, int val)
     // 计算样本集平均值更新后的样本集灰度总平方和
     // Calculate Sum of Gray Value's Square After Average Value Updated.
     for(int m = 0; m < num_samples; m++)
-        res += pow(samples[i][j][k] - samples_ave[i][j], 2);
+        res += pow(samples[i][j][m] - samples_ave[i][j], 2);
     res /= num_samples;
     samples_sumsqr[i][j] = res;
 }
@@ -951,14 +951,59 @@ Mat ViBePlus::getUpdateModel()
 */
 void ViBePlus::deleteSamples()
 {
-    delete samples;
-    delete samples_Frame;
-    delete samples_ave;
-    delete samples_sumsqr;
-    delete samples_ForeNum;
-    delete samples_BGInner;
-    delete samples_InnerState;
-    delete samples_BlinkLevel;
-    delete samples_MaxInnerGrad;
+    for (int i = 0; i < Gray.rows; ++i) {
+        for (int j = 0; j < Gray.cols; ++j) {
+            for (int k = 0; k < num_samples + 1; k++) {
+                delete[]samples_Frame[i][j][k];
+                samples_Frame[i][j][k] = nullptr;
+            }
+            delete[]samples_Frame[i][j];
+            delete[]samples[i][j];
+
+            samples_Frame[i][j] = nullptr;
+            samples[i][j] = nullptr;
+        }
+        delete[]samples_Frame[i];
+        delete[]samples[i];
+        delete[]samples_ave[i];
+        delete[]samples_sumsqr[i];
+        delete[]samples_ForeNum[i];
+        delete[]samples_BGInner[i];
+        delete[]samples_InnerState[i];
+        delete[]samples_BlinkLevel[i];
+        delete[]samples_MaxInnerGrad[i];
+
+
+
+        samples_Frame[i] = nullptr;
+        samples[i] = nullptr;
+        samples_ave[i] = nullptr;
+        samples_sumsqr[i] = nullptr;
+        samples_ForeNum[i] = nullptr;
+        samples_BGInner[i] = nullptr;
+        samples_InnerState[i] = nullptr;
+        samples_BlinkLevel[i] = nullptr;
+        samples_MaxInnerGrad[i] = nullptr;
+
+    }
+    delete[]samples_Frame;
+    delete[]samples;
+    delete[]samples_ave;
+    delete[]samples_sumsqr;
+    delete[]samples_ForeNum;
+    delete[]samples_BGInner;
+    delete[]samples_InnerState;
+    delete[]samples_BlinkLevel;
+    delete[]samples_MaxInnerGrad;
+
+    samples_Frame = nullptr;
+    samples = nullptr;
+    samples_ave = nullptr;
+    samples_sumsqr = nullptr;
+    samples_ForeNum = nullptr;
+    samples_BGInner = nullptr;
+    samples_InnerState = nullptr;
+    samples_BlinkLevel = nullptr;
+    samples_MaxInnerGrad = nullptr;
 }
 

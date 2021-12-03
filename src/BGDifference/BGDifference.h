@@ -26,11 +26,8 @@
 #include <stdio.h>
 #include <iostream>
 
-#include "cv.h"
-#include "cxcore.h"
-#include "highgui.h"
-#include "cvaux.h"
-#include "cxmisc.h"
+#include "opencv2/opencv.hpp"
+#include "opencv2/highgui.hpp"
 
 using namespace cv;
 using namespace std;
@@ -41,7 +38,7 @@ public:
     // 背景差分算法
     // Background Difference Algorithm
     void BackgroundDiff(Mat src, Mat &imgForeground, Mat& imgBackground, int nFrmNum,
-                        int threshold_method = CV_THRESH_OTSU, double updateSpeed = 0.03);
+                        int threshold_method = THRESH_OTSU, double updateSpeed = 0.03);
 
     // 大津法
     // OTSU Algorithm

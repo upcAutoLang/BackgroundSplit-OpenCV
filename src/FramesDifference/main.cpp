@@ -4,8 +4,8 @@
 ===================================================
 */
 
-#include "highgui.h"
-#include "cv.h"
+#include "opencv2/opencv.hpp"
+#include "opencv2/highgui.hpp"
 #include <iostream>
 
 using namespace cv;
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         if(frameNum >= 2)
         {
             // 转化为单通道灰度图，此时currentFrame已经存了tmpFrame的内容
-            cvtColor(tmpFrame, currentFrame, CV_BGR2GRAY);
+            cvtColor(tmpFrame, currentFrame, COLOR_BGR2GRAY);
             currentFrame.convertTo(tmpFrameF, CV_32FC1);
             previousFrame.convertTo(previousFrameF, CV_32FC1);
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
             此处阈值可以帮助把车辆的阴影消除掉
             */
 //            threshold(currentFrameF, currentFrame, 20, 255.0, CV_THRESH_BINARY);
-            threshold(currentFrame, currentFrame, 30, 255, CV_THRESH_BINARY);
+            threshold(currentFrame, currentFrame, 30, 255, THRESH_BINARY);
 
             int g_nStructElementSize = 3; //结构元素(内核矩阵)的尺寸
             // 获取自定义核
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         }
 
         //把当前帧保存作为下一次处理的前一帧
-        cvtColor(tmpFrame, previousFrame, CV_BGR2GRAY);
+        cvtColor(tmpFrame, previousFrame, COLOR_BGR2GRAY);
 
         // 显示图像
         imshow("Camera", tmpFrame);

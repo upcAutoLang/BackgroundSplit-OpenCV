@@ -48,9 +48,10 @@ ViBe::ViBe(int num_sam, int min_match, int r, int rand_sam)
     num_min_matches = min_match;
     radius = r;
     random_sample = rand_sam;
-    int c_off[9] = {-1, 0, 1, -1, 1, -1, 0, 1, 0};
-    for(int i = 0; i < 9; i++){
+    int c_off[9] = { -1, 0, 1, -1, 1, -1, 0, 1, 0 };
+    for (int i = 0; i < 9; i++) {
         c_xoff[i] = c_yoff[i] = c_off[i];
+    }
 }
 
 /*===================================================================
